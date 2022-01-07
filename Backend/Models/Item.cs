@@ -13,18 +13,12 @@ namespace Backend.Models
 
         public int QuantityStock { get; set; }
 
-        private bool _isAvailable;
-        public bool IsAvailable
-        {
-            get { return _isAvailable; }
-            set
-            {
-                _isAvailable = QuantityStock > 0 ? true : false;
-            }
-        }
+        public bool IsAvailable { get; set; }
 
         public double ItemPrice { get; set; }
 
         public DateTime DateOfCreation { get; set; }
+
+
     }
 }
