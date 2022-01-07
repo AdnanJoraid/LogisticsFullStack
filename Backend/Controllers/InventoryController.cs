@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Backend.Models;
-
+using Backend.Persistence;
 
 namespace Backend.Controllers
 {
@@ -27,6 +27,13 @@ namespace Backend.Controllers
 
     public class InventoryController : ControllerBase
     {
+        private readonly DataContext _context; 
+
+        public InventoryController(DataContext context)
+        {
+            this._context = context; 
+        }
+
         
     }
 }

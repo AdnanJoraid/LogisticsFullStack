@@ -8,11 +8,11 @@ namespace Backend.Models
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
-        private List<Item> _Items;
+        private List<Item> _items;
         public List<Item> Items
         {
-            get { return _Items; }
-            set { _Items = value; }
+            get { return _items; }
+            set { _items = value; }
         }
 
     }
