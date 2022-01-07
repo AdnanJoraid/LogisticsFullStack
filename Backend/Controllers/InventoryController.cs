@@ -199,7 +199,7 @@ namespace Backend.Controllers
         }
 
         [HttpPut("update/item/{id}")]
-        public async Task<IActionResult> updateItemById(string id, [FromBody] Item updatedItem)
+        public async Task<IActionResult> UpdateItemById(string id, [FromBody] Item updatedItem)
         {
             try
             {
@@ -228,6 +228,30 @@ namespace Backend.Controllers
             {
                 return BadRequest(e.ToString());
             }
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteItemWithId(string id){
+
+            try {
+
+                if (string.IsNullOrEmpty(id))
+                    return BadRequest("the given ID is empty");
+
+                Item item = await _context.Items.FirstOrDefaultAsync(x => x.Id.Equals(new Guid(id)));
+
+                if (item == null)
+                    return BadRequest($"The item with the given ID: {id} does not exist");
+
+                _context.Items.Remove(item);
+                _context.Inventory.Include(x => x.Items);
+                await _context.SaveChangesAsync();
+                return Ok($"Item with ID {id} has been deleted"); 
+
+            } catch (Exception e){
+                return BadRequest(e.ToString());
+            }
+           
         }
 
     }
