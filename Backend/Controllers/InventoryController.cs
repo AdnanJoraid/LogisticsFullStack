@@ -198,5 +198,37 @@ namespace Backend.Controllers
             }
         }
 
+        [HttpPut("update/item/{id}")]
+        public async Task<IActionResult> updateItemById(string id, [FromBody] Item updatedItem)
+        {
+            try
+            {
+
+                if (string.IsNullOrEmpty(id))
+                    return BadRequest("Given id is empty.");
+
+                Item oldItem = await _context.Items.FirstOrDefaultAsync(x => x.Id.Equals(new Guid(id)));
+                if (oldItem == null)
+                    return BadRequest("Item with the given Id does not exist");
+
+                oldItem.ItemName = updatedItem.ItemName;
+                oldItem.ItemPrice = updatedItem.ItemPrice;
+                oldItem.QuantityStock = updatedItem.QuantityStock;
+                oldItem.Description = updatedItem.Description;
+                oldItem.IsAvailable = updatedItem.QuantityStock > 0 ? true : false;
+                oldItem.DateOfCreation = DateTime.Now;
+
+                await _context.SaveChangesAsync();
+
+                return Ok($"The item with the id {updatedItem.Id} has been updated.");
+
+
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.ToString());
+            }
+        }
+
     }
 }
