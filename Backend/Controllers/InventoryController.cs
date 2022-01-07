@@ -98,6 +98,35 @@ namespace Backend.Controllers
             }
         }
 
+        [HttpPost("{inventoryName}/items")]
+        public async Task<IActionResult> AddItemsListToInventory([FromBody] List<Item> items, string inventoryName){
+            try{
+
+                 if (string.IsNullOrEmpty(inventoryName)){
+                     return BadRequest($"Inventory with the name is empty");
+                 }
+
+                var inventory = await _context.Inventory.Include(x => x.Items).FirstOrDefaultAsync(x => x.Name.Equals(inventoryName));
+                
+                if (inventory == null)
+                    return BadRequest($"Inventory with the name: {inventoryName} does not exist.");
+
+                foreach (Item item in items){
+                    item.DateOfCreation = DateTime.Now;
+                    item.IsAvailable = item.QuantityStock > 0 ? true : false; 
+                }
+
+                inventory.Items.AddRange(items);
+                await _context.SaveChangesAsync();
+
+                return Ok("List of items has been added to the database");
+
+
+            }catch (Exception e){
+                return BadRequest(e.ToString());
+            }
+        }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetItemById(string id)
         {
@@ -156,7 +185,7 @@ namespace Backend.Controllers
         [HttpGet("items/")]
         public async Task<IActionResult> GetAllDatabaseItems()
         {
-            //returns all items in specified inventory
+            //returns all items in the database
             try
             {
             
