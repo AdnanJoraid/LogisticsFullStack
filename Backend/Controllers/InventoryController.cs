@@ -153,5 +153,21 @@ namespace Backend.Controllers
             }
         }
 
+        [HttpGet("items/")]
+        public async Task<IActionResult> GetAllDatabaseItems()
+        {
+            //returns all items in specified inventory
+            try
+            {
+            
+                return Ok(await _context.Items.ToArrayAsync());
+
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.ToString());
+            }
+        }
+
     }
 }
