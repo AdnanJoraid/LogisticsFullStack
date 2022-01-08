@@ -9,10 +9,10 @@ using Backend.Persistence;
 The controller WarehouseController contains all the API endpoints that are associated with the adding, deleting, updating, and retrieving of Warehouses. 
 The API Controller contains a total of five endpoints. Which are: 
 1) POST - http://localhost:5000/api/warehouse : Adds a warehouse item to the SQLite database.
-3) GET  - http://localhost:5000/api/warehouse/{id} : Retrieves a warehouse with a given ID. 
-4) GET  - http://localhost:5000/api/warehouse/all/ : Retrieves all the warehouses in the database. 
-5) PUT  - http://localhost:5000/api/warehouse/update/{id} : Updates a warehouse data with an updated warehouse passed alongside the ID of the old warehouse.
-6) DELETE - http://localhost:5000/api/warehouse/{id} : Deletes a warehouse with a given ID. 
+2) GET  - http://localhost:5000/api/warehouse/{id} : Retrieves a warehouse with a given ID. 
+3) GET  - http://localhost:5000/api/warehouse/all/ : Retrieves all the warehouses in the database. 
+4) PUT  - http://localhost:5000/api/warehouse/update/{id} : Updates a warehouse data with an updated warehouse passed alongside the ID of the old warehouse.
+5) DELETE - http://localhost:5000/api/warehouse/{id} : Deletes a warehouse with a given ID. 
 */
 namespace Backend.Controllers {
     [ApiController]
