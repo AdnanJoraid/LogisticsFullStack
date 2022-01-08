@@ -92,7 +92,7 @@ namespace Backend.Controllers
 
                     if (itemInDatabase != null)
                     {
-                        items.Remove(item); //remove item for items list since it already exists.
+                        items.Remove(item); //remove item from items list since it already exists.
                         totalExistedItems++;
                         continue; //if item already exists, skip it and go to next item. 
                     }
