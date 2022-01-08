@@ -32,10 +32,10 @@ namespace Backend.Controllers
         public async Task<IActionResult> AddItem([FromBody] InventoryItem item)
         {
             /*
-            Summary: AddItem method is responsible for creating inventory items and adding them to the SQLite database. 
+            Summary: AddItem method is responsible for creating inventory item and adding it to the SQLite database. 
             Arguments: InventoryItem object from the request body : (JSON BODY) 
             Return: Two Cases:
-                1-Http Response. A 200 Status code is returned with the item name if the item does not exist.
+                1-Http Response. A 200 Status code is returned with the item.
                 2-Http Response. A 400 status code is returned (error) if the item already exists in the database. 
             */
             try
