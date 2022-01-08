@@ -4,14 +4,14 @@ using System.Collections.Generic;
 
 namespace Backend.Models
 {
-    public class Item
+    public class InventoryItem
     {
         public Guid Id { get; set; }
         public string ItemName { get; set; }
 
         public string Description { get; set; }
 
-        public int QuantityStock { get; set; }
+        public int BeginningQuantity { get; set; }
 
         public bool IsAvailable { get; set; }
 

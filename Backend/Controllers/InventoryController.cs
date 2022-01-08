@@ -7,89 +7,55 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Backend.Models;
 using Backend.Persistence;
-
+/*
+The controller InventoryController contains all the API endpoints that are associated with the adding, deleting, updating, and retrieving of Inventory Items. 
+The API Controller contains a total of six endpoints. Which are: 
+1) POST - http://localhost:5000/api/inventory : Adds an inventory item to the SQLite database.
+2) POST - http://localhost:5000/api/inventory/items/add : Adds a list of inventory items objects to the database. 
+3) GET  - http://localhost:5000/api/inventory/{id} : Retrieves an inventory item with a given ID. 
+4) GET  - http://localhost:5000/api/inventory/items/ : Retrieves all the inventory items in the database. 
+5) PUT  - http://localhost:5000/api/inventory/update/item/{id} : Updates an inventroy item's data with an updated inventory item passed alongside the ID of the old inventroy item.
+6) DELETE - http://localhost:5000/api/inventory/{id} : Deletes an inventory item with a given ID. 
+*/
 namespace Backend.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-
-    /*
-
-    endpoints 
-    POST Inventory - Creates an Inventory DONE
-    POST Items(JSON) - adds multiple items 
-    POST Item(Item item) - adds one item DONE 
-    POST Item To inventory - Add Item to a specified Inventory
-    GET Item by ID DONE
-    GET all items DONE
-    Edit Item by Id
-    GET List of items DONE
-    DELETE Inventory by id 
-    DELETE Item By id 
-    */
-
     public class InventoryController : ControllerBase
     {
-        private readonly DataContext _context; 
+        private readonly DataContext _context;
 
         public InventoryController(DataContext context)
         {
-            this._context = context; 
-        }
-
-        [HttpPost("addInventory")]
-        public async Task<IActionResult> AddInventory([FromBody] string inventoryName)
-        {
-            try
-            {
-
-                if (string.IsNullOrEmpty(inventoryName))
-                {
-                    return BadRequest("Inventory name is null");
-                }
-
-                var inventory = await _context.Inventory.FirstOrDefaultAsync(x => x.Name.Contains(inventoryName));
-                if (inventory != null)
-                {
-                    return BadRequest($"The inventory: {inventoryName} Already Exists");
-                }
-
-                await _context.Inventory.AddAsync(new Inventory
-                {
-                    Name = inventoryName
-                });
-
-                await _context.SaveChangesAsync();
-
-                return Ok($"Inventory: {inventoryName} is created");
-
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.ToString());
-            }
+            this._context = context;
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddItem([FromBody] Item item)
+        public async Task<IActionResult> AddItem([FromBody] InventoryItem item)
         {
+            /*
+            Summary: AddItem method is responsible for creating inventory items and adding them to the SQLite database. 
+            Arguments: InventoryItem object from the request body : (JSON BODY) 
+            Return: Two Cases:
+                1-Http Response. A 200 Status code is returned with the item name if the item does not exist.
+                2-Http Response. A 400 status code is returned (error) if the item already exists in the database. 
+            */
             try
             {
                 //Check if item already exists
-                var itemInDb = _context.Inventory.Include(x => x.Items).SelectMany(x => x.Items.Where(x => x.ItemName.Equals(item.ItemName)));
+                InventoryItem itemInDb = await _context.Items.FirstOrDefaultAsync(x => x.ItemName.Equals(item.ItemName));
 
-                if (itemInDb.SingleOrDefault(x => x.ItemName.Equals(item.ItemName)) != null)
+                if (itemInDb != null)
                 {
-                    return BadRequest($"The item {item.ItemName} already exists in the database. Did you mean to update?\nIf yes please use the update endpoint.");
+                    return BadRequest($"The item {item.ItemName} already exists in the database. Did you mean to update?\nIf yes please use the update endpoint or Transaction endpoint.");
                 }
 
                 item.DateOfCreation = DateTime.Now;
-                item.IsAvailable = item.QuantityStock > 0 ? true : false;
-                var inventory = await _context.Inventory.Include(x => x.Items).FirstOrDefaultAsync(x => x.Name.Equals("LogisticsDefaultInventory")); //default inventory
-                inventory.Items.Add(item);
+                item.IsAvailable = item.BeginningQuantity > 0 ? true : false;
+                _context.Items.Add(item);
                 await _context.SaveChangesAsync();
 
-                return Ok($"The item {item.ItemName} was added to the database.");
+                return Ok($"The item {item.ItemName} has been added to the database.");
 
             }
             catch (Exception e)
@@ -98,31 +64,50 @@ namespace Backend.Controllers
             }
         }
 
-        [HttpPost("{inventoryName}/items")]
-        public async Task<IActionResult> AddItemsListToInventory([FromBody] List<Item> items, string inventoryName){
-            try{
+        [HttpPost("items/add")]
+        public async Task<IActionResult> AddItemsListToInventory([FromBody] List<InventoryItem> items)
+        {
+            /*
+            Summary: AddItemsListToInventory method is responsible for adding a list of items from the request body to the SQLite database. If one of the item already exists. That
+            item would not be added. However, all other items will be. 
+            Arguments: A list of InventoryItem object from the request body : (JSON BODY) 
+            Return: Two Cases:
+                1-Http Response. A 200 Status code is returned with a confirmation.
+                2-Http Response. A 400 status code is returned (error) if the item list is empty. 
+            */
+            try
+            {
 
-                 if (string.IsNullOrEmpty(inventoryName)){
-                     return BadRequest($"Inventory with the name is empty");
-                 }
-
-                var inventory = await _context.Inventory.Include(x => x.Items).FirstOrDefaultAsync(x => x.Name.Equals(inventoryName));
-                
-                if (inventory == null)
-                    return BadRequest($"Inventory with the name: {inventoryName} does not exist.");
-
-                foreach (Item item in items){
-                    item.DateOfCreation = DateTime.Now;
-                    item.IsAvailable = item.QuantityStock > 0 ? true : false; 
+                if (items.Count < 1)
+                {
+                    return BadRequest($"Items list is empty");
                 }
 
-                inventory.Items.AddRange(items);
+                int totalExistedItems = 0;
+
+
+                foreach (InventoryItem item in items)
+                {
+                    InventoryItem itemInDatabase = await _context.Items.FirstOrDefaultAsync(x => x.ItemName.Equals(item.ItemName));
+
+                    if (itemInDatabase != null)
+                    {
+                        items.Remove(item); //remove item for items list since it already exists.
+                        totalExistedItems++;
+                        continue; //if item already exists, skip it and go to next item. 
+                    }
+                    item.DateOfCreation = DateTime.Now;
+                    item.IsAvailable = item.BeginningQuantity > 0 ? true : false;
+                }
+
+                await _context.Items.AddRangeAsync(items);
                 await _context.SaveChangesAsync();
+                return Ok($"List of items has been added to the database. The total of items wre not added to database: {totalExistedItems}");
 
-                return Ok("List of items has been added to the database");
 
-
-            }catch (Exception e){
+            }
+            catch (Exception e)
+            {
                 return BadRequest(e.ToString());
             }
         }
@@ -130,13 +115,20 @@ namespace Backend.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetItemById(string id)
         {
+            /*
+            Summary: GetItemById method is responsible for retrieving an item by ID. 
+            Arguments: A string that represents the item ID from the request body : (JSON BODY) 
+            Return: Two Cases:
+                1-Http Response. A 200 Status code is returned with the item.
+                2-Http Response. A 404 status code is returned (error) if the item with the given ID does not exists in the database. 
+            */
             try
             {
-                Item item = await _context.Items.FirstOrDefaultAsync(x => x.Id.Equals(new Guid(id)));
+                InventoryItem item = await _context.Items.FirstOrDefaultAsync(x => x.Id.Equals(new Guid(id)));
 
                 if (item == null)
                 {
-                    return BadRequest($"Item with the id {id} does not exist.");
+                    return NotFound($"Item with the id {id} does not exist.");
                 }
 
                 return Ok(item);
@@ -147,48 +139,23 @@ namespace Backend.Controllers
             }
         }
 
-        [HttpGet("All")]
-        public async Task<IActionResult> GetAllDefaultInventoryItem()
-        {
-            //returns all items in default inventory
-            try
-            {
-                var inventory = await _context.Inventory.Include(x => x.Items).FirstOrDefaultAsync(x => x.Name.Equals("LogisticsDefaultInventory")); //default inventory
-                return Ok(inventory);
-
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.ToString());
-            }
-        }
 
 
-        [HttpGet("{name}/All")]
-        public async Task<IActionResult> GetAllInventoryItemByName(string name)
-        {
-            //returns all items in specified inventory
-            try
-            {
-                var inventory = await _context.Inventory.Include(x => x.Items).FirstOrDefaultAsync(x => x.Name.Equals(name));
-                if (inventory == null)
-                    return BadRequest($"Inventory with name: {name} does not exist");
-                return Ok(inventory);
 
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.ToString());
-            }
-        }
 
         [HttpGet("items/")]
         public async Task<IActionResult> GetAllDatabaseItems()
         {
-            //returns all items in the database
+            /*
+            Summary: GetAllDatabaseItems method is responsible for retrieving all the items in the database. 
+            Arguments: None
+            Return: Two Cases:
+              1-Http Response. A 200 Status code is returned with a list of items list.
+              2-Http Response. A 400 status code is returned (error) if any error occurred.
+            */
             try
             {
-            
+
                 return Ok(await _context.Items.ToArrayAsync());
 
             }
@@ -199,23 +166,31 @@ namespace Backend.Controllers
         }
 
         [HttpPut("update/item/{id}")]
-        public async Task<IActionResult> UpdateItemById(string id, [FromBody] Item updatedItem)
+        public async Task<IActionResult> UpdateItemById(string id, [FromBody] InventoryItem updatedItem)
         {
+            /*
+            Summary: UpdateItemById method is responsible for updating an old item with a new updated item. 
+            Arguments: A string that represents the item ID from the request body and an InventoryItem object that holds the updated data. : (JSON BODY) 
+            Return: Three Cases:
+               1-Http Response. A 200 Status code is returned with the updated item ID.
+               2-Http Response. A 404 status code is returned (error) if the item with the given ID does not exists in the database. 
+               3-Http Response. A 400 status code is returned (error) if string ID from the request is empty. 
+            */
             try
             {
 
                 if (string.IsNullOrEmpty(id))
                     return BadRequest("Given id is empty.");
 
-                Item oldItem = await _context.Items.FirstOrDefaultAsync(x => x.Id.Equals(new Guid(id)));
+                InventoryItem oldItem = await _context.Items.FirstOrDefaultAsync(x => x.Id.Equals(new Guid(id)));
                 if (oldItem == null)
-                    return BadRequest("Item with the given Id does not exist");
+                    return NotFound("Item with the given Id does not exist");
 
                 oldItem.ItemName = updatedItem.ItemName;
                 oldItem.ItemPrice = updatedItem.ItemPrice;
-                oldItem.QuantityStock = updatedItem.QuantityStock;
+                oldItem.BeginningQuantity = updatedItem.BeginningQuantity;
                 oldItem.Description = updatedItem.Description;
-                oldItem.IsAvailable = updatedItem.QuantityStock > 0 ? true : false;
+                oldItem.IsAvailable = updatedItem.BeginningQuantity > 0 ? true : false;
                 oldItem.DateOfCreation = DateTime.Now;
 
                 await _context.SaveChangesAsync();
@@ -231,27 +206,38 @@ namespace Backend.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteItemWithId(string id){
+        public async Task<IActionResult> DeleteItemWithId(string id)
+        {
+            /*
+            Summary: DeleteItemWithId method is responsible for deleting an inventory item from the database. 
+            Arguments: A string that represents the item ID of the inventory item from the request body : (JSON BODY) 
+            Return: Three Cases:
+               1-Http Response. A 200 Status code is returned with the deleted item ID.
+               2-Http Response. A 404 status code is returned (error) if the item with the given ID does not exists in the database. 
+               3-Http Response. A 400 status code is returned (error) if string ID from the request is empty. 
+            */
 
-            try {
+            try
+            {
 
                 if (string.IsNullOrEmpty(id))
                     return BadRequest("the given ID is empty");
 
-                Item item = await _context.Items.FirstOrDefaultAsync(x => x.Id.Equals(new Guid(id)));
+                InventoryItem item = await _context.Items.FirstOrDefaultAsync(x => x.Id.Equals(new Guid(id)));
 
                 if (item == null)
-                    return BadRequest($"The item with the given ID: {id} does not exist");
+                    return NotFound($"The item with the given ID: {id} does not exist");
 
                 _context.Items.Remove(item);
-                _context.Inventory.Include(x => x.Items);
                 await _context.SaveChangesAsync();
-                return Ok($"Item with ID {id} has been deleted"); 
+                return Ok($"Item with ID {id} has been deleted");
 
-            } catch (Exception e){
+            }
+            catch (Exception e)
+            {
                 return BadRequest(e.ToString());
             }
-           
+
         }
 
     }

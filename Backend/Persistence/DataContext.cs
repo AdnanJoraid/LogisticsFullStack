@@ -6,9 +6,11 @@ namespace Backend.Persistence
     public class DataContext : DbContext
     {
 
-        public DbSet<Item> Items {get; set;}
+        public DbSet<InventoryItem> Items {get; set;}
 
-        public DbSet<Inventory> Inventory { get; set; }
+        public DbSet<Warehouse> Warehouses { get; set; }
+
+        public DbSet<InventoryTransaction> Transactions { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlite("Filename=Database.db");
