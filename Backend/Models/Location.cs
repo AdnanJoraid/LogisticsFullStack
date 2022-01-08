@@ -5,6 +5,8 @@ using System.Collections.Generic;
 namespace Backend.Models{
 
     public class Location{
+
+        public Guid Id { get; set; }
         public int Aisle { get; set; }
 
         public int Rack { get; set; }
