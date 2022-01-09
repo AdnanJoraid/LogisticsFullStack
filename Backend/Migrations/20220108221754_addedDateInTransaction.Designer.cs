@@ -3,14 +3,16 @@ using System;
 using Backend.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LogisticsAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20220108221754_addedDateInTransaction")]
+    partial class addedDateInTransaction
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -54,9 +56,6 @@ namespace LogisticsAPI.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("FormattedLocation")
-                        .HasColumnType("TEXT");
-
                     b.Property<Guid?>("InventoryItemId")
                         .HasColumnType("TEXT");
 
@@ -65,9 +64,6 @@ namespace LogisticsAPI.Migrations
 
                     b.Property<int>("Type")
                         .HasColumnType("INTEGER");
-
-                    b.Property<string>("TypeString")
-                        .HasColumnType("TEXT");
 
                     b.Property<Guid?>("WarehouseId")
                         .HasColumnType("TEXT");

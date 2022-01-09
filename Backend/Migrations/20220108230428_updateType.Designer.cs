@@ -3,14 +3,16 @@ using System;
 using Backend.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LogisticsAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20220108230428_updateType")]
+    partial class updateType
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -54,17 +56,14 @@ namespace LogisticsAPI.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("FormattedLocation")
-                        .HasColumnType("TEXT");
-
                     b.Property<Guid?>("InventoryItemId")
                         .HasColumnType("TEXT");
 
                     b.Property<Guid?>("ItemLocationId")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Type")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("Type")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("TypeString")
                         .HasColumnType("TEXT");
