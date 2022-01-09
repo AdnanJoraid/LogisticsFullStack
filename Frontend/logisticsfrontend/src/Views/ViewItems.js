@@ -16,7 +16,7 @@ const ViewItems = () => {
           className="buttonStyle"
           onClick={() => navigate("/View/InventoryItems")}
         >
-          View Inventory Items
+          View, edit, and delete Inventory Items
         </button>
         <div></div>
         <button
@@ -24,7 +24,7 @@ const ViewItems = () => {
           className="buttonStyle"
           onClick={() => navigate("/View/Warehouses")}
         >
-          View Warehouses
+          View, edit, and delete Warehouses
         </button>
         <div></div>
         <button
@@ -32,7 +32,7 @@ const ViewItems = () => {
           className="buttonStyle"
           onClick={() => navigate("/View/Transactions")}
         >
-          View Transactions
+          View, edit, and delete Transactions
         </button>
       </div>
     </div>
