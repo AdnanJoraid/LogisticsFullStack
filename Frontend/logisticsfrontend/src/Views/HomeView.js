@@ -1,5 +1,4 @@
 import React from "react";
-import { Stack, Button } from "react-bootstrap/";
 import "../Styles/HomeView.css";
 
 function HomeView() {
