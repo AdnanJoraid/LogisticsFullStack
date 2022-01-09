@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useLocation } from "react-router-dom";
+import { useParams, useLocation, useNavigate } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
@@ -9,9 +9,10 @@ const EditInventoryView = () => {
   const [responseDone, setResponseDone] = useState(false);
   const { id } = useParams();
   const [oldItem, setOldItem] = useState({});
-  const [updatedItemName, setUpdatedItemName] = useState();
-  const [updatedItemDescription, setUpdatedItemDescription] = useState();
+  const [updatedItemName, setUpdatedItemName] = useState(null);
+  const [updatedItemDescription, setUpdatedItemDescription] = useState(null);
   const [updatedItemPrice, setUpdatedItemPrice] = useState(0);
+  let navigate = useNavigate();
 
   useEffect(() => {
     GetInventoryItems().then(setResponseDone(true));
@@ -30,16 +31,25 @@ const EditInventoryView = () => {
   };
 
   const UpdateInventoryItem = async () => {
-      await axios({
-        method: "put",
-        url: `http://localhost:5000/api/inventory/update/item/${id}`,
-        data: {
-          itemName: updatedItemName,
-          description: updatedItemDescription,
-          itemPrice: updatedItemPrice, 
-          beginningQuantity : oldItem.beginningQuantity, 
-        },
-      });
+    if (!updatedItemPrice) setUpdatedItemPrice(oldItem.itemPrice);
+
+    if (!updatedItemDescription) setUpdatedItemDescription(oldItem.description);
+
+    if (!updatedItemName) setUpdatedItemName(oldItem.itemName);
+    await axios({
+      method: "put",
+      url: `http://localhost:5000/api/inventory/update/item/${id}`,
+      data: {
+        itemName: updatedItemName ? updatedItemName : oldItem.itemName,
+        description: updatedItemDescription
+          ? updatedItemDescription
+          : oldItem.description,
+        itemPrice: updatedItemPrice ? updatedItemPrice : oldItem.itemPrice,
+        beginningQuantity: oldItem.beginningQuantity,
+      },
+    })
+      .then((res) => console.log(res))
+      .then(navigate("/View/InventoryItems"));
   };
   return (
     <div style={{ margin: 40 }} className="center">
@@ -73,9 +83,9 @@ const EditInventoryView = () => {
           <Form.Label>Inventory Item Price</Form.Label>
           <Form.Control
             type="input"
-            placeholder={oldItem.itemName}
+            placeholder={oldItem.itemPrice}
             onChange={(e) => {
-              setUpdatedItemName(e.target.value);
+              setUpdatedItemPrice(e.target.value);
               console.log(e.target.value);
             }}
           />
