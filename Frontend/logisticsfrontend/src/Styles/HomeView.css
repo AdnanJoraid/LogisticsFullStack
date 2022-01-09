@@ -1,0 +1,23 @@
+.center {
+    text-align: center;
+}
+
+.buttonStyle{
+    display: inline-block;
+    padding:0.3em 1.2em;
+    margin:0 0.1em 0.1em 0;
+    color: white;
+
+
+    background-color:hsl(212, 70%, 35%);
+}
+
+.buttonStyleSecondary{
+    display: inline-block;
+    padding:0.3em 1.2em;
+    margin:0 0.1em 0.1em 0;
+    color: white;
+
+
+    background-color:#961b1b;
+}
