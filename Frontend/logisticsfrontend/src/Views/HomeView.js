@@ -11,18 +11,18 @@ function HomeView() {
       </h1>
       <div className="center" style={{ margin: 300 }}>
         <button
-          style={{ width: 350, height: 50 }}
+          style={{ width: 470, height: 50 }}
           className="buttonStyle"
           onClick={() => navigate("/Create")}
         >
           Create items, warehouses, and transactions
         </button>
         <button
-          style={{ width: 350, height: 50 }}
+          style={{ width: 470, height: 50 }}
           className="buttonStyleSecondary"
           onClick={() => navigate("/View")}
         >
-          View items, warehouses, and transactions
+          View, edit, and delete items, warehouses, and transactions
         </button>
       </div>
     </div>
