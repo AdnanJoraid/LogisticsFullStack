@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -10,11 +9,11 @@ The controller TransactionController contains all the API endpoints that are ass
 Transaction is what will connect the item, location and other related properties to the warehouse. The TransactionInventory is an object that will hold an inventory item with its 
 corresponding warehouse location.  
 The API Controller contains a total of # endpoints. Which are: 
-1) POST - http://localhost:5000/api/warehouse : Adds a warehouse item to the SQLite database.
-2) GET  - http://localhost:5000/api/warehouse/{id} : Retrieves a warehouse with a given ID. 
-3) GET  - http://localhost:5000/api/warehouse/all/ : Retrieves all the warehouses in the database. 
-4) PUT  - http://localhost:5000/api/warehouse/update/{id} : Updates a warehouse data with an updated warehouse passed alongside the ID of the old warehouse.
-5) DELETE - http://localhost:5000/api/warehouse/{id} : Deletes a warehouse with a given ID. 
+1) POST - http://localhost:5000/api/transaction/{inventoryId}/{warehouseId} : Adds a transaction item to the SQLite database in addition to the warehouse and item associated with it.
+2) GET  - http://localhost:5000/api/transaction/{id} : Retrieves a transaction with a given ID. 
+3) GET  - http://localhost:5000/api/transaction/ : Retrieves all the transactions in the database. 
+4) PUT  - http://localhost:5000/api/transaction/update/{id} : Updates a transaction data with an updated transaction passed alongside the ID of the old transaction.
+5) DELETE - http://localhost:5000/api/transaction/delete/{id} : Deletes a transaction with a given ID. 
 */
 namespace Backend.Controllers
 {
