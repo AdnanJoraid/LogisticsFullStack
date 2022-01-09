@@ -9,10 +9,10 @@ import EditInventoryView from "./EditInventoryView";
 const InventoryItemsView = () => {
   const [items, setItems] = useState([]);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    GetInventoryItems();
-  }, []);
+const [newItems, setNewItems] = useState(false);
+useEffect(() => {
+  GetInventoryItems();
+});
 
   const GetInventoryItems = () => {
     axios("http://localhost:5000/api/inventory/items")
