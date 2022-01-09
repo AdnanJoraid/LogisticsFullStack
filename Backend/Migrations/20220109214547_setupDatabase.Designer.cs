@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LogisticsAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220108225943_updatedEnumValue")]
-    partial class updatedEnumValue
+    [Migration("20220109214547_setupDatabase")]
+    partial class setupDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -56,13 +56,19 @@ namespace LogisticsAPI.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("FormattedLocation")
+                        .HasColumnType("TEXT");
+
                     b.Property<Guid?>("InventoryItemId")
                         .HasColumnType("TEXT");
 
                     b.Property<Guid?>("ItemLocationId")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Type")
+                    b.Property<int>("Type")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("TypeString")
                         .HasColumnType("TEXT");
 
                     b.Property<Guid?>("WarehouseId")

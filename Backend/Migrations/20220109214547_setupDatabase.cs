@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace LogisticsAPI.Migrations
 {
-    public partial class initialMigration : Migration
+    public partial class setupDatabase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -59,8 +59,11 @@ namespace LogisticsAPI.Migrations
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     InventoryItemId = table.Column<Guid>(type: "TEXT", nullable: true),
                     WarehouseId = table.Column<Guid>(type: "TEXT", nullable: true),
+                    TypeString = table.Column<string>(type: "TEXT", nullable: true),
                     Type = table.Column<int>(type: "INTEGER", nullable: false),
-                    ItemLocationId = table.Column<Guid>(type: "TEXT", nullable: true)
+                    ItemLocationId = table.Column<Guid>(type: "TEXT", nullable: true),
+                    FormattedLocation = table.Column<string>(type: "TEXT", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
