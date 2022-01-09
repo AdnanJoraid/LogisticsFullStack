@@ -2,20 +2,17 @@ import React, { useState, useEffect } from "react";
 import "../Styles/HomeView.css";
 import Table from "react-bootstrap/Table";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import EditInventoryView from "./EditInventoryView";
+
 
 const InventoryItemsView = () => {
   const [items, setItems] = useState([]);
-  const navigate = useNavigate();
-const [newItems, setNewItems] = useState(false);
-useEffect(() => {
-  GetInventoryItems();
-});
+  useEffect(() => {
+    GetInventoryItems();
+  });
 
-  const GetInventoryItems = () => {
-    axios("http://localhost:5000/api/inventory/items")
+  const GetInventoryItems = async () => {
+    await axios("http://localhost:5000/api/inventory/items")
       .then((response) => {
         setItems(response.data);
       })
@@ -24,8 +21,8 @@ useEffect(() => {
       });
   };
 
-  const DeleteInventoryItem = (itemId) => {
-    axios
+  const DeleteInventoryItem = async (itemId) => {
+    await axios
       .delete(`http://localhost:5000/api/inventory/${itemId}`, { data: itemId })
       .then((res) => console.log(res))
       .then(() => window.location.reload(false))
@@ -62,7 +59,9 @@ useEffect(() => {
                 <td>{String(item.isAvailable)}</td>
                 <td>{item.dateOfCreation}</td>
                 <td>
-                  <Link to={{ pathname: `/Edit/${item.id}` }}>Edit</Link>
+                  <Link to={{ pathname: `/EditInventory/${item.id}` }}>
+                    Edit
+                  </Link>
                 </td>
                 <td>
                   <td>
