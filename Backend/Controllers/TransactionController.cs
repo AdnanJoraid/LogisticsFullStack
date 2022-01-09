@@ -9,10 +9,10 @@ The controller TransactionController contains all the API endpoints that are ass
 Transaction is what will connect the item, location and other related properties to the warehouse. The TransactionInventory is an object that will hold an inventory item with its 
 corresponding warehouse location.  
 The API Controller contains a total of # endpoints. Which are: 
-1) POST - http://localhost:5000/api/transaction/{inventoryId}/{warehouseId} : Adds a transaction item to the SQLite database in addition to the warehouse and item associated with it.
-2) GET  - http://localhost:5000/api/transaction/{id} : Retrieves a transaction with a given ID. 
-3) GET  - http://localhost:5000/api/transaction/ : Retrieves all the transactions in the database. 
-4) PUT  - http://localhost:5000/api/transaction/update/{id} : Updates a transaction data with an updated transaction passed alongside the ID of the old transaction.
+1) POST -   http://localhost:5000/api/transaction/{inventoryId}/{warehouseId} : Adds a transaction item to the SQLite database in addition to the warehouse and item associated with it.
+2) GET  -   http://localhost:5000/api/transaction/{id} : Retrieves a transaction with a given ID. 
+3) GET  -   http://localhost:5000/api/transaction/ : Retrieves all the transactions in the database. 
+4) PUT  -   http://localhost:5000/api/transaction/update/{id} : Updates a transaction data with an updated transaction passed alongside the ID of the old transaction.
 5) DELETE - http://localhost:5000/api/transaction/delete/{id} : Deletes a transaction with a given ID. 
 */
 namespace Backend.Controllers
@@ -32,6 +32,15 @@ namespace Backend.Controllers
         [HttpPost("{inventoryId}/{warehouseId}/{transactionType}")]
         public async Task<IActionResult> CreateInventoryTransaction(string inventoryId, string warehouseId, [FromBody] InventoryTransaction transaction, string transactionType)
         {
+            /*
+            Summary: CreateInventoryTransaction method is responsible for creating an inventory transaction and adding it to the SQLite database with the item and warehouse. 
+            Arguments: Two strings that represents the inventroy and warehouse id and the inventory transaction object from the request body : (JSON BODY) 
+            Return: Four Cases:
+                1-Http Response. A 200 Status code is returned with the Inventory Transaction ID.
+                2-Http Response. A 400 status code is returned (error) if the transaction already exists in the database. 
+                3-Http Response. A 404 status code is returned (error) if the transaction does not exists in the database. 
+                3-Http Response. A 400 status code is returned (error) if any of the IDs are empty. 
+            */
             try
             {
                 if (string.IsNullOrEmpty(inventoryId) || string.IsNullOrEmpty(warehouseId))
@@ -44,7 +53,7 @@ namespace Backend.Controllers
                 Warehouse warehouse = await _context.Warehouses.FirstOrDefaultAsync(x => x.Id.Equals(new Guid(warehouseId)));
 
                 if (warehouse == null)
-                    return BadRequest($"Warehouse with ID {warehouseId} does not exist in the database");
+                    return NotFound($"Warehouse with ID {warehouseId} does not exist in the database");
 
 
                 InventoryTransaction transactionInDb = await _context.Transactions.FirstOrDefaultAsync(x => x.Id.Equals(transaction.Id));
@@ -85,6 +94,13 @@ namespace Backend.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllTransaction()
         {
+            /*
+            Summary: GetAllTransaction method is responsible for retrieving all the transactions in the database in additon the the inventory and warehouse associated with it. 
+            Arguments: None
+            Return: two Cases:
+                1-Http Response. A 200 status alongside the list of transactions.
+                2-Http Response. A 400 status from the catch block (if unexpected error occurred)
+            */
             try
             {
                 return Ok(await _context.Transactions.Include(x => x.InventoryItem).Include(x => x.Warehouse).Include(x => x.ItemLocation).ToListAsync());
@@ -99,6 +115,15 @@ namespace Backend.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetTransactionById(string id)
         {
+            /*
+            Summary: GetTransactionById method is responsible for retrieving one transaction from the database in additon the the inventory and warehouse associated with it. 
+            Arguments: A string that represents the ID of the transaction.
+            Return: Three Cases:
+                1-Http Response. A 200 status alongside the transaction.
+                2-Http Response. A 400 status from the catch block (if unexpected error occurred)
+                3-Http Response. A 400 status if the id is null or empty
+                4-Http Response. A 404 status if the transaction does not exist in the database.
+            */
             try
             {
 
@@ -126,6 +151,15 @@ namespace Backend.Controllers
         [HttpPut("update/{id}")]
         public async Task<IActionResult> UpdateTransaction(string id, [FromBody] InventoryTransaction updatedTransaction)
         {
+            /*
+            Summary: UpdateTransaction method is responsible for updating a transactions in the database in additon the the inventory and warehouse associated with it. 
+            Arguments: String ID that represents the transaction. An updated inventory transaction coming from the request body. 
+            Return: two Cases:
+                1-Http Response. A 200 status alongside the updated transaction ID.
+                2-Http Response. A 400 status from the catch block (if unexpected error occurred)
+                3-Http Response. A 404 status if the transaction does not exists
+                4-Http Response. A 400 status if the id is null or empty. 
+            */
             try
             {
                 if (string.IsNullOrEmpty(id))
@@ -160,6 +194,16 @@ namespace Backend.Controllers
         [HttpDelete("delete/{id}")]
         public async Task<IActionResult> DeleteItemById(string id)
         {
+            /*
+            Summary: DeleteItemById method is responsible for deleting a transactions in the database in additon the the inventory and warehouse associated with it. 
+            Arguments: String ID that represents the inventory transaction ID. 
+            Return: two Cases:
+                1-Http Response. A 200 status alongside the deleted transaction ID.
+                2-Http Response. A 400 status from the catch block (if unexpected error occurred)
+                3-Http Response. A 404 status if the transaction does not exists
+                4-Http Response. A 400 status if the id is null or empty. 
+            */
+
             try
             {
                 if (string.IsNullOrEmpty(id))
