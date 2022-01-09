@@ -17,7 +17,7 @@ function App() {
         <Route path="/View/InventoryItems" element={<InventoryItemsView />} />
         <Route path="/View/Warehouses" element={<WarehousesView />} />
         <Route path="/View/Transactions" element={<TransactionsView />} />
-        <Route path="/Edit/:id" element={<EditInventoryView />} />
+        <Route path="/EditInventory/:id" element={<EditInventoryView />} />
       </Routes>
     </Router>
   );
