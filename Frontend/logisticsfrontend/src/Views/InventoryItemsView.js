@@ -23,6 +23,16 @@ useEffect(() => {
         console.error("Error fetching data: ", error);
       });
   };
+
+  const DeleteInventoryItem = (itemId) => {
+    axios
+      .delete(`http://localhost:5000/api/inventory/${itemId}`, { data: itemId })
+      .then((res) => console.log(res))
+      .then(() => window.location.reload(false))
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   return (
     <div className="center" style={{ margin: 25 }}>
       <h1>Inventory Items View</h1>
@@ -52,7 +62,7 @@ useEffect(() => {
                 <td>{String(item.isAvailable)}</td>
                 <td>{item.dateOfCreation}</td>
                 <td>
-                  <Link to={{pathname: `/Edit/${ item.id}`}}>Edit</Link>
+                  <Link to={{ pathname: `/Edit/${item.id}` }}>Edit</Link>
                 </td>
                 <td>
                   <td>
@@ -63,10 +73,7 @@ useEffect(() => {
                         boxShadow: "white",
                       }}
                       onClick={() => {
-                        console.log(
-                          "delete button clicked on item: ",
-                          item.itemName
-                        );
+                        DeleteInventoryItem(item.id);
                       }}
                     >
                       Delete
