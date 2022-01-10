@@ -33,7 +33,7 @@ const InventoryItemsView = () => {
   return (
     <div className="center" style={{ margin: 25 }}>
       <Link to={"/"}>Home</Link>
-      <h1>Inventory Items View</h1>
+      <h1>Inventory Items</h1>
       <div style={{ margin: 25 }}>
         <Table striped bordered hover>
           <thead>
