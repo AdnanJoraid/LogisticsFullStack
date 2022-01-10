@@ -43,6 +43,7 @@ const TransactionsView = () => {
               <th>Transaction ID</th>
               <th>Inventory Item ID</th>
               <th>Inventory Item Name</th>
+              <th>QTY</th>
               <th>Warehouse ID</th>
               <th>Warehouse Name</th>
               <th>Type IN/OUT</th>
@@ -59,6 +60,7 @@ const TransactionsView = () => {
                 <td>{transaction.id}</td>
                 <td>{transaction.inventoryItem.id}</td>
                 <td>{transaction.inventoryItem.itemName}</td>
+                <td>{transaction.inventoryItem.beginningQuantity}</td>
                 <td>{transaction.warehouse.id}</td>
                 <td>{transaction.warehouse.name}</td>
                 <td>{transaction.typeString}</td>
