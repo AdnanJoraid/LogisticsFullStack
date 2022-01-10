@@ -172,17 +172,17 @@ namespace Backend.Controllers
                     return NotFound($"There is no record of a transaction with the ID {id}");
 
 
+
                 oldTransaction.InventoryItem = updatedTransaction.InventoryItem;
                 oldTransaction.Warehouse = updatedTransaction.Warehouse;
                 oldTransaction.Type = updatedTransaction.Type;
                 oldTransaction.TypeString = updatedTransaction.Type.ToString();
-                oldTransaction.CreatedDate = updatedTransaction.CreatedDate;
                 oldTransaction.ItemLocation = updatedTransaction.ItemLocation;
                 oldTransaction.FormattedLocation = updatedTransaction.ItemLocation.FormatLocation();
                 oldTransaction.InventoryItem.IsAvailable = updatedTransaction.InventoryItem.BeginningQuantity > 0 ? true : false;
 
                 await _context.SaveChangesAsync();
-                return Ok($"The transaction with the ID {updatedTransaction.Id} has been updated");
+                return Ok($"The transaction with the ID {oldTransaction.Id} has been updated");
 
             }
             catch (Exception e)
