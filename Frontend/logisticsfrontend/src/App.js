@@ -8,6 +8,7 @@ import TransactionsView from "./Views/TransactionsView";
 import InventoryItemsView from "./Views/InventoryItemsView";
 import EditInventoryView from "./Views/EditInventoryView";
 import EditWarehouseView from "./Views/EditWarehouseView";
+import EditTransactionView from "./Views/EditTransactionView";
 function App() {
   return (
     <Router>
@@ -20,6 +21,7 @@ function App() {
         <Route path="/View/Transactions" element={<TransactionsView />} />
         <Route path="/EditInventory/:id" element={<EditInventoryView />} />
         <Route path="/EditWarehouse/:id" element={<EditWarehouseView />} />
+        <Route path="/EditTransaction/:id" element={<EditTransactionView/>}/>
       </Routes>
     </Router>
   );
