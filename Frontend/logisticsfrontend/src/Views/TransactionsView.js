@@ -33,6 +33,7 @@ const TransactionsView = () => {
   };
   return (
     <div className="center" style={{ margin: 25 }}>
+      <Link to={"/"}>Home</Link>
       <h1>Transactions</h1>
       <div style={{ margin: 25 }}>
         <Table striped bordered hover>

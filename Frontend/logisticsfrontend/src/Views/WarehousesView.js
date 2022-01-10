@@ -32,6 +32,7 @@ const WarehousesView = () => {
   };
   return (
     <div className="center" style={{ margin: 25 }}>
+      <Link to={"/"}>Home</Link>
       <h1>Warehouses</h1>
       <div style={{ margin: 25 }}>
         <Table striped bordered hover>

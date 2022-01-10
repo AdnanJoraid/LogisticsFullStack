@@ -1,14 +1,13 @@
 import React from "react";
 import "../Styles/HomeView.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 const ViewItems = () => {
-      const navigate = useNavigate();
+  const navigate = useNavigate();
 
   return (
     <div className="center" style={{ margin: 55 }}>
       <h1>
-        Welcome To Logistics - Shopify summer 2022 backend challenge - By Adnan
-        Joraid
+        <Link to={"/"}>Home</Link>
       </h1>
       <div style={{ margin: 280 }}>
         <button
