@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import axios from "axios";
 import Button from "react-bootstrap/Button";
+import { Link } from "react-router-dom";
 
 const CreateTransactionView = () => {
   const [inventoryId, setInventoryId] = useState("");
@@ -14,8 +15,8 @@ const CreateTransactionView = () => {
 
   const AddTransactionToDatabase = async () => {
     await axios({
-      method: 'post',
-      headers: {'Content-Type' : 'application/json'},
+      method: "post",
+      headers: { "Content-Type": "application/json" },
       url: `http://localhost:5000/api/Transaction/${inventoryId}/${warehouseId}/${type}`,
       data: {
         itemLocation: {
@@ -24,15 +25,19 @@ const CreateTransactionView = () => {
           shelf: itemShelf,
           bin: itemBin,
         },
-      }
+      },
     })
       .then((response) => console.log(response))
+      .then(window.location.reload(false))
       .catch((err) => console.error(err));
   };
 
   return (
     <div style={{ margin: 40 }} className="center">
+        <Link to={"/"}>Home</Link>
+   
       <h3>Create Transaction</h3>
+
       <Form className="center">
         <Form.Group className="mb-3" controlId="{exampleForm.ControlInput1}">
           <Form.Label>Inventory Item ID</Form.Label>
