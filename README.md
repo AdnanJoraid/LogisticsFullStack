@@ -7,6 +7,8 @@ Hey! My name is Adnan Joraid and this is my try for Shopify backend developer in
   - [Frontend](#frontend)
 - [API Endpoints and Examples](#api-endpoints-and-examples)
     - [Inventory Controller API endpoints](#inventory-controller-api-endpoints)
+    - [Warehouse Controller API endpoints](#warehouse-controller-api-endpoints)
+    - [Transaction Controller API endpoints](#transaction-controller-api-endpoints)
 - [Demo](#demo)
 
 # Technologies
@@ -147,5 +149,77 @@ DELETE - http://localhost:5000/api/inventory/{id} : Deletes an inventory item wi
 Example:  http://localhost:5000/api/inventory/81b291b7-eb3a-458c-b5b5-43fee992d8f5 <br>
 Response: Item with ID 81b291b7-eb3a-458c-b5b5-43fee992d8f5 has been deleted
 
+### Warehouse Controller API endpoints
+
+POST - http://localhost:5000/api/warehouse : Adds a warehouse item to the SQLite database.
+
+
+Example -> Body:
+
+```json
+{
+    "Name" : "Amazon", 
+    "Address" : "Amazon Canada Fulfillment Services, Inc., 6363 Millcreek Dr, Mississauga, ON L5N 1L8"
+}
+```
+Response: Warehouse has been added to the database. The warehouse ID is 1f40dcdf-7072-46ab-8688-03c11f111e35
+
+
+GET  - http://localhost:5000/api/warehouse/{id} : Retrieves a warehouse with a given ID. 
+
+
+Example: GET - http://localhost:5000/api/warehouse/5c3d9a61-2e25-4324-9319-add5c130083e
+
+Response:
+```json
+{
+    "Name" : "Amazon", 
+    "Address" : "Amazon Canada Fulfillment Services, Inc., 6363 Millcreek Dr, Mississauga, ON L5N 1L8"
+}
+```
+
+GET  - http://localhost:5000/api/warehouse/all/ : Retrieves all the warehouses in the database. 
+
+Response:
+
+```json 
+[
+  {
+    "id": "5c3d9a61-2e25-4324-9319-add5c130083e",
+    "name": "Amazon",
+    "address": "Amazon Canada Fulfillment Services, Inc., 6363 Millcreek Dr, Mississauga, ON L5N 1L8"
+  },
+  {
+    "id": "1f40dcdf-7072-46ab-8688-03c11f111e35",
+    "name": "Amazon Canada",
+    "address": "Amazon Canada Fulfillment Services, Inc., 6363 Millcreek Dr, Mississauga, ON L5N 1L8"
+  }
+]
+```
+
+PUT  - http://localhost:5000/api/warehouse/update/{id} : Updates a warehouse data with an updated warehouse passed alongside the ID of the old warehouse.
+
+Example: PUT - http://localhost:5000/api/warehouse/update/1f40dcdf-7072-46ab-8688-03c11f111e35 
+
+Body: 
+
+```json
+{
+  "name": "Amazon Brampton",
+  "address": "8050 Heritage Rd, Brampton, ON L6Y 0C9"
+}
+```
+
+response: The warehouse with the ID 1f40dcdf-7072-46ab-8688-03c11f111e35 has been updated
+
+
+DELETE - http://localhost:5000/api/warehouse/{id} : Deletes a warehouse with a given ID. 
+
+Example: DELETE - http://localhost:5000/api/warehouse/1f40dcdf-7072-46ab-8688-03c11f111e35 
+
+Response: The warehouse with the ID 1f40dcdf-7072-46ab-8688-03c11f111e35 has been deleted.
+
+
+### Transaction Controller API endpoints
 
 # Demo
