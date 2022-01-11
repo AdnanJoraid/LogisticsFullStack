@@ -14,7 +14,7 @@ const CreateView = () => {
         <button
           style={{ width: 350, height: 50, margin: 10 }}
           className="buttonStyle"
-          onClick={() => navigate("/View/InventoryItems")}
+          onClick={() => navigate("/Create/InventoryItem")}
         >
           Create an Inventory Item
         </button>
@@ -22,7 +22,7 @@ const CreateView = () => {
         <button
           style={{ width: 350, height: 50, margin: 10 }}
           className="buttonStyle"
-          onClick={() => navigate("/View/Warehouses")}
+          onClick={() => navigate("/Create/Warehouse")}
         >
           Create a Warehouse
         </button>
