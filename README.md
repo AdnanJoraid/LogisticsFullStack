@@ -6,7 +6,7 @@ Hey! My name is Adnan Joraid and this is my try for Shopify backend developer in
   - [Backend](#backend)
   - [Frontend](#frontend)
 - [API Endpoints and Examples](#api-endpoints-and-examples)
-    - [Inventory Controller API endpoints </br>](#inventory-controller-api-endpoints-br)
+    - [Inventory Controller API endpoints](#inventory-controller-api-endpoints)
 - [Demo](#demo)
 
 # Technologies
@@ -57,7 +57,7 @@ To run Frontend:
 
 
 # API Endpoints and Examples
-### Inventory Controller API endpoints </br>
+### Inventory Controller API endpoints
 POST - http://localhost:5000/api/inventory : Adds an inventory item to the SQLite database.
 Example: Request:
 ```json
