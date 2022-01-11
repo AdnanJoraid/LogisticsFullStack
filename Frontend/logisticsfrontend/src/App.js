@@ -9,6 +9,10 @@ import InventoryItemsView from "./Views/InventoryItemsView";
 import EditInventoryView from "./Views/EditInventoryView";
 import EditWarehouseView from "./Views/EditWarehouseView";
 import EditTransactionView from "./Views/EditTransactionView";
+import CreateTransactionView from "./Views/CreateTransactionView";
+import CreateInventoryItemView from "./Views/CreateInventoryItemView";
+import CreateWarehoseView from "./Views/CreateWarehouseView";
+
 function App() {
   return (
     <Router>
@@ -21,7 +25,14 @@ function App() {
         <Route path="/View/Transactions" element={<TransactionsView />} />
         <Route path="/EditInventory/:id" element={<EditInventoryView />} />
         <Route path="/EditWarehouse/:id" element={<EditWarehouseView />} />
-        <Route path="/EditTransaction/:id" element={<EditTransactionView/>}/>
+        <Route path="/EditTransaction/:id" element={<EditTransactionView />} />
+        <Route
+          path="/Create/InventoryItem"
+          element={<CreateInventoryItemView />}
+        />
+        <Route path="/Create/Warehouse" element={<CreateWarehoseView />} />
+
+        <Route path="/Create/Transaction" element={<CreateTransactionView />} />
       </Routes>
     </Router>
   );
