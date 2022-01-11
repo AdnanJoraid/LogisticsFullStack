@@ -6,6 +6,7 @@ Hey! My name is Adnan Joraid and this is my try for Shopify backend developer in
   - [Backend](#backend)
   - [Frontend](#frontend)
 - [API Endpoints and Examples](#api-endpoints-and-examples)
+    - [Inventory Controller API endpoints </br>](#inventory-controller-api-endpoints-br)
 - [Demo](#demo)
 
 # Technologies
@@ -18,13 +19,15 @@ Backend:
 - Language used: C# 
 - Database: SQLite 
 - Framework: ASP.NET 
-- IDE: Visual Studio Code </br>
+- IDE: Visual Studio Code
+
 Frontend:
 - React
   
 To run the backend after installation:
 1. cd backend 
 2. dotnet run 
+
 To run Frontend:
 1. cd frontend 
 2. cd logisticsfrontend
@@ -54,7 +57,7 @@ To run Frontend:
 
 
 # API Endpoints and Examples
-1. Inventory Controller API endpoints 
+### Inventory Controller API endpoints </br>
 POST - http://localhost:5000/api/inventory : Adds an inventory item to the SQLite database.
 Example: Request:
 ```json
@@ -84,10 +87,65 @@ Example: Request:
 ```
 Response: List of items has been added to the database. </br>
 
-GET  - http://localhost:5000/api/inventory/{id} : Retrieves an inventory item with a given ID. 
-GET  - http://localhost:5000/api/inventory/items/ : Retrieves all the inventory items in the database. 
-PUT  - http://localhost:5000/api/inventory/update/item/{id} : Updates an inventroy item's data with an updated inventory item passed alongside the ID of the old inventroy item.
-DELETE - http://localhost:5000/api/inventory/{id} : Deletes an inventory item with a given ID. 
+GET - http://localhost:5000/api/inventory/{id} : Retrieves an inventory item with a given ID. 
+</br>
+Example:
+http://localhost:5000/api/inventory/81b291b7-eb3a-458c-b5b5-43fee992d8f5
+</br>
+response:
+
+```json
+{
+  "id": "81b291b7-eb3a-458c-b5b5-43fee992d8f5",
+  "itemName": "RTX 3070",
+  "description": "RTX 3070 is a high-end graphics card by NVIDIA, launched on September 1st, 2020. Built on the 8 nm process, and based on the GA104 graphics processor, in its GA104-300-A1 variant, the card supports DirectX 12 Ultimate.",
+  "beginningQuantity": 43,
+  "isAvailable": true,
+  "itemPrice": 679.99,
+  "dateOfCreation": "2022-01-11T15:41:04.3154171"
+}
+```
+
+GET - http://localhost:5000/api/inventory/items/ : Retrieves all the inventory items in the database. 
+Example: </br>
+Response:
+```json
+{
+  "ItemName": "Jello - Assorted",
+  "Description": "Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.\n\nVestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat.",
+  "QuantityStock": 46,
+  "ItemPrice": 9.64
+}, {
+  "ItemName": "Sambuca - Ramazzotti",
+  "Description": "In quis justo. Maecenas rhoncus aliquam lacus. Morbi quis tortor id nulla ultrices aliquet.\n\nMaecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui.",
+  "QuantityStock": 36,
+  "ItemPrice": 9.23
+}
+```
+
+PUT  - http://localhost:5000/api/inventory/update/item/{id} : Updates an inventroy item's data with an updated inventory item passed alongside the ID of the old inventroy item. </br>
+Example: </br>
+Request: http://localhost:5000/api/inventory/update/item/81b291b7-eb3a-458c-b5b5-43fee992d8f5 </br>
+Body:
+
+```json
+{
+  "id": "81b291b7-eb3a-458c-b5b5-43fee992d8f5",
+  "itemName": "RTX 3060",
+  "description": "RTX 3070 is a high-end graphics card by NVIDIA, launched on September 1st, 2020. Built on the 8 nm process, and based on the GA104 graphics processor, in its GA104-300-A1 variant, the card supports DirectX 12 Ultimate.",
+  "beginningQuantity": 43,
+  "isAvailable": true,
+  "itemPrice": 679.99,
+  "dateOfCreation": "2022-01-11T15:41:04.3154171"
+}
+```
+Response: The item with the id 81b291b7-eb3a-458c-b5b5-43fee992d8f5 has been updated.
+
+
+DELETE - http://localhost:5000/api/inventory/{id} : Deletes an inventory item with a given ID. </br>
+
+Example:  http://localhost:5000/api/inventory/81b291b7-eb3a-458c-b5b5-43fee992d8f5 <br>
+Response: Item with ID 81b291b7-eb3a-458c-b5b5-43fee992d8f5 has been deleted
 
 
 # Demo
