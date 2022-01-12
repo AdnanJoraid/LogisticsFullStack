@@ -9,7 +9,7 @@ The controller TransactionController contains all the API endpoints that are ass
 Transaction is what will connect the item, location and other related properties to the warehouse. The TransactionInventory is an object that will hold an inventory item with its 
 corresponding warehouse location.  
 The API Controller contains a total of 5 endpoints. Which are: 
-1) POST -   http://localhost:5000/api/transaction/{inventoryId}/{warehouseId} : Adds a transaction item to the SQLite database in addition to the warehouse and item associated with it.
+1) POST -   http://localhost:5000/api/transaction/{inventoryId}/{warehouseId}/{transactionType} : Adds a transaction item to the SQLite database in addition to the warehouse and item associated with it.
 2) GET  -   http://localhost:5000/api/transaction/{id} : Retrieves a transaction with a given ID. 
 3) GET  -   http://localhost:5000/api/transaction/ : Retrieves all the transactions in the database. 
 4) PUT  -   http://localhost:5000/api/transaction/update/{id} : Updates a transaction data with an updated transaction passed alongside the ID of the old transaction.
