@@ -34,8 +34,8 @@ const CreateTransactionView = () => {
 
   return (
     <div style={{ margin: 40 }} className="center">
-        <Link to={"/"}>Home</Link>
-   
+      <Link to={"/"}>Home</Link>
+
       <h3>Create Transaction</h3>
 
       <Form className="center">
@@ -60,7 +60,7 @@ const CreateTransactionView = () => {
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="{exampleForm.ControlInput1}">
-          <Form.Label>Type. 0 for IN. 1 for OUT</Form.Label>
+          <Form.Label>Type. IN/OUT</Form.Label>
           <Form.Control
             type="input"
             placeholder="Enter Type"
