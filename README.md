@@ -1,8 +1,9 @@
 # LogisticsAPI-ShopifyBackend-2022
 Hey! My name is Adnan Joraid, and this is my submission for the Shopify backend developer intern (summer 2022) challenge. This readme will contain detailed information on the installations required and an overview of technologies used, which type of feature I chose to implement, and finally, a demo of the working application. 
-- [LogisticsAPI-ShopifyBackend-2022](#logisticsapi-shopifybackend-2022)
+
+## Table of Contents
 - [Technologies](#technologies)
-- [Installation and Running](#installation-and-running)
+- [Installation and Running the Application](#installation-and-running-the-application)
   - [Backend](#backend)
   - [Frontend](#frontend)
 - [API Endpoints and Examples](#api-endpoints-and-examples)
@@ -16,7 +17,7 @@ LogisticsAPI is an extensive REST API back-end built with C#, SQLite database, a
 
 
 
-# Installation and Running
+# Installation and Running the Application
 Backend:
 - Language used: C# 
 - Database: SQLite 
