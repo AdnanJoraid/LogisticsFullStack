@@ -39,7 +39,7 @@ const EditTransactionView = () => {
       });
   };
 
-  const UpdateInventoryItem = async () => {
+  const UpdateTransaction = async () => {
     await axios({
       method: "put",
       url: `http://localhost:5000/api/Transaction/update/${id}`,
@@ -132,7 +132,7 @@ const EditTransactionView = () => {
           />
         </Form.Group>
       </Form>
-      <Button variant="primary" type="submit" onClick={UpdateInventoryItem}>
+      <Button variant="primary" type="submit" onClick={UpdateTransaction}>
         Update
       </Button>
     </div>
