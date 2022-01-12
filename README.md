@@ -1,5 +1,5 @@
 # LogisticsAPI-ShopifyBackend-2022
-Hey! My name is Adnan Joraid and this is my try for Shopify backend developer intern (summer 2022) challenge. This readme will contain a detailed information on the installations required and an overview of teachnologies used, which type of feature I chose to implement, and finally a demo of the working application. 
+Hey! My name is Adnan Joraid, and this is my submission for the Shopify backend developer intern (summer 2022) challenge. This readme will contain detailed information on the installations required and an overview of technologies used, which type of feature I chose to implement, and finally, a demo of the working application. 
 - [LogisticsAPI-ShopifyBackend-2022](#logisticsapi-shopifybackend-2022)
 - [Technologies](#technologies)
 - [Installation and Running](#installation-and-running)
