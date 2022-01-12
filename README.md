@@ -6,13 +6,13 @@ Hey! My name is Adnan Joraid and this is my try for Shopify backend developer in
   - [Backend](#backend)
   - [Frontend](#frontend)
 - [API Endpoints and Examples](#api-endpoints-and-examples)
-    - [Inventory Controller API endpoints](#inventory-controller-api-endpoints)
-    - [Warehouse Controller API endpoints](#warehouse-controller-api-endpoints)
-    - [Transaction Controller API endpoints](#transaction-controller-api-endpoints)
+  - [Inventory Controller API endpoints](#inventory-controller-api-endpoints)
+  - [Warehouse Controller API endpoints](#warehouse-controller-api-endpoints)
+  - [Transaction Controller API endpoints](#transaction-controller-api-endpoints)
 - [Demo](#demo)
 
 # Technologies
-LogisticsAPI is an extensive REST API back-end built with C#, SQLite database, and ASP.NET framework that implements an inventory tracking web application for a logistics company. The back-end supports basic CRUD functionality for creating inventory items, warehouses, and inventory transactions. The back-end provides a high quality code with input validation, try-catch statements to handle unexpected exeptions, and different HTTP status code returned with the response to provide a clear confirmation and/or error messages. Although this is a back-end specific challenge, I implemented a frontend using React that allow users to add items, warehouses, and transactions. Moreover, the user is also able to view all th items, warehouses and transactions through the frontend using React-Bootstrap tables. 
+LogisticsAPI is an extensive REST API back-end built with C#, SQLite database, and ASP.NET framework that implements an inventory tracking web application for a logistics company. The back-end supports basic CRUD functionality for creating inventory items, warehouses, and inventory transactions. The back-end provides a high-quality code with input validation, try-catch statements to handle unexpected exceptions, and different HTTP status codes returned with the response to provide confirmation or error messages. Although this is a back-end specific challenge, I implemented a frontend using React allowing users to add items, warehouses, and transactions. Moreover, the user is also able to view all the items, warehouses and transactions through the frontend.
 
 
 
@@ -59,9 +59,9 @@ To run Frontend:
 
 
 # API Endpoints and Examples
-### Inventory Controller API endpoints
+## Inventory Controller API endpoints
 POST - http://localhost:5000/api/inventory : Adds an inventory item to the SQLite database.
-Example: Request:
+Example: Request Body:
 ```json
 {
     "ItemName" : "RTX 3070", 
@@ -73,7 +73,7 @@ Example: Request:
 Resposne: The item RTX 3070 has been added to the database. </br>
 
 POST - http://localhost:5000/api/inventory/items/add : Adds a list of inventory items objects to the database. 
-Example: Request:
+Example: Request Body:
 ```json
 [{
   "ItemName": "Jello - Assorted",
@@ -149,7 +149,7 @@ DELETE - http://localhost:5000/api/inventory/{id} : Deletes an inventory item wi
 Example:  http://localhost:5000/api/inventory/81b291b7-eb3a-458c-b5b5-43fee992d8f5 <br>
 Response: Item with ID 81b291b7-eb3a-458c-b5b5-43fee992d8f5 has been deleted
 
-### Warehouse Controller API endpoints
+## Warehouse Controller API endpoints
 
 POST - http://localhost:5000/api/warehouse : Adds a warehouse item to the SQLite database.
 
@@ -220,6 +220,169 @@ Example: DELETE - http://localhost:5000/api/warehouse/1f40dcdf-7072-46ab-8688-03
 Response: The warehouse with the ID 1f40dcdf-7072-46ab-8688-03c11f111e35 has been deleted.
 
 
-### Transaction Controller API endpoints
+## Transaction Controller API endpoints
+POST -   http://localhost:5000/api/transaction/{inventoryId}/{warehouseId}/{type} : Adds a transaction item to the SQLite database in addition to the warehouse and item associated with it.
+
+Example:POST- http://localhost:5000/api/transaction/2422b392-e1b1-4664-95da-4a58684dc184/5c3d9a61-2e25-4324-9319-add5c130083e/out
+
+Body: 
+
+```json
+{
+    "ItemLocation": {
+        "Aisle" : 1, 
+        "Rack": 4, 
+        "Shelf" : 2, 
+        "Bin" : 4
+    }
+}
+```
+
+Response: Transaction with the ID 0d09babe-cd40-471e-8b85-ba954bdf510b has been issued on 2022-01-11 6:37:09 PM
+
+
+GET  -   http://localhost:5000/api/transaction/{id} : Retrieves a transaction with a given ID. 
+
+Example: http://localhost:5000/api/transaction/0d09babe-cd40-471e-8b85-ba954bdf510b
+
+Response: 
+
+```json 
+{
+  "id": "0d09babe-cd40-471e-8b85-ba954bdf510b",
+  "inventoryItem": {
+    "id": "2422b392-e1b1-4664-95da-4a58684dc184",
+    "itemName": "PlayStation 5 Digital Edition Console",
+    "description": "Advanced gaming is easier than ever thanks to this PlayStation 5 Digital Edition console with Astro's Playroom. Designed without a disc drive, it allows you to log into your PlayStation account to instantly purchase and download your favourite games. It's equipped with impressive technologies like the haptic feedback support and 3D audio for an immersive experience.",
+    "beginningQuantity": 533,
+    "isAvailable": true,
+    "itemPrice": 499.99,
+    "dateOfCreation": "2022-01-11T15:48:57.2611517"
+  },
+  "warehouse": {
+    "id": "5c3d9a61-2e25-4324-9319-add5c130083e",
+    "name": "Amazon",
+    "address": "Amazon Canada Fulfillment Services, Inc., 6363 Millcreek Dr, Mississauga, ON L5N 1L8"
+  },
+  "typeString": "out",
+  "type": 0,
+  "itemLocation": {
+    "id": "37c8f4d5-5e72-4a0d-ace5-2ac1e491f320",
+    "aisle": 1,
+    "rack": 4,
+    "shelf": 2,
+    "bin": 4
+  },
+  "formattedLocation": "01-04-02-4",
+  "createdDate": "2022-01-11T18:37:09.6583447"
+}
+```
+GET  -   http://localhost:5000/api/transaction/ : Retrieves all the transactions in the database. 
+
+Example -> Response
+
+```json
+[{
+    "id": "01dec629-b852-41a9-982e-cedac5a0ac84",
+    "inventoryItem": {
+      "id": "883e81db-5749-466d-ac49-fc9630b41024",
+      "itemName": "One Piece.",
+      "description": "As a child, Monkey D. Luffy was inspired to become a pirate by listening to the tales of the buccaneer 'Red-Haired' Shanks. But his life changed when Luffy accidentally ate the Gum-Gum Devil Fruit and gained the power to stretch like rubber ... at the cost of never being able to swim again! Years later, still vowing to become the king of the pirates, Luffy sets out on his adventure ... one guy alone in a rowboat, in search of the legendary 'One Piece', said to be the greatest treasure in the world",
+      "beginningQuantity": 43,
+      "isAvailable": true,
+      "itemPrice": 12.99,
+      "dateOfCreation": "2022-01-09T22:07:35.469209"
+    },
+    "warehouse": {
+      "id": "5c3d9a61-2e25-4324-9319-add5c130083e",
+      "name": "Amazon",
+      "address": "Amazon Canada Fulfillment Services, Inc., 6363 Millcreek Dr, Mississauga, ON L5N 1L8"
+    },
+    "typeString": "IN",
+    "type": 0,
+    "itemLocation": {
+      "id": "0683d6e4-8356-4df6-a39a-ae2297440143",
+      "aisle": 1,
+      "rack": 4,
+      "shelf": 2,
+      "bin": 4
+    },
+    "formattedLocation": "01-04-02-4",
+    "createdDate": "2022-01-11T18:34:13.8239739"
+  },
+  {
+    "id": "0d09babe-cd40-471e-8b85-ba954bdf510b",
+    "inventoryItem": {
+      "id": "2422b392-e1b1-4664-95da-4a58684dc184",
+      "itemName": "PlayStation 5 Digital Edition Console",
+      "description": "Advanced gaming is easier than ever thanks to this PlayStation 5 Digital Edition console with Astro's Playroom. Designed without a disc drive, it allows you to log into your PlayStation account to instantly purchase and download your favourite games. It's equipped with impressive technologies like the haptic feedback support and 3D audio for an immersive experience.",
+      "beginningQuantity": 533,
+      "isAvailable": true,
+      "itemPrice": 499.99,
+      "dateOfCreation": "2022-01-11T15:48:57.2611517"
+    },
+    "warehouse": {
+      "id": "5c3d9a61-2e25-4324-9319-add5c130083e",
+      "name": "Amazon",
+      "address": "Amazon Canada Fulfillment Services, Inc., 6363 Millcreek Dr, Mississauga, ON L5N 1L8"
+    },
+    "typeString": "out",
+    "type": 0,
+    "itemLocation": {
+      "id": "37c8f4d5-5e72-4a0d-ace5-2ac1e491f320",
+      "aisle": 1,
+      "rack": 4,
+      "shelf": 2,
+      "bin": 4
+    },
+    "formattedLocation": "01-04-02-4",
+    "createdDate": "2022-01-11T18:37:09.6583447"
+  }
+]
+```
+PUT  -   http://localhost:5000/api/transaction/update/{id} : Updates a transaction data with an updated transaction passed alongside the ID of the old transaction.
+
+Example -> http://localhost:5000/api/transaction/update/0d09babe-cd40-471e-8b85-ba954bdf510b
+
+Request body:
+
+```json
+{
+  "id": "0d09babe-cd40-471e-8b85-ba954bdf510b",
+  "inventoryItem": {
+    "id": "2422b392-e1b1-4664-95da-4a58684dc184",
+    "itemName": "PlayStation 5 Digital Edition Console",
+    "description": "Advanced gaming is easier than ever thanks to this PlayStation 5 Digital Edition console with Astro's Playroom. Designed without a disc drive, it allows you to log into your PlayStation account to instantly purchase and download your favourite games. It's equipped with impressive technologies like the haptic feedback support and 3D audio for an immersive experience.",
+    "beginningQuantity": 533,
+    "isAvailable": true,
+    "itemPrice": 499.99,
+    "dateOfCreation": "2022-01-11T15:48:57.2611517"
+  },
+  "warehouse": {
+    "id": "5c3d9a61-2e25-4324-9319-add5c130083e",
+    "name": "Amazon",
+    "address": "Amazon Canada Fulfillment Services, Inc., 6363 Millcreek Dr, Mississauga, ON L5N 1L8"
+  },
+  "type": 0,
+  "itemLocation": {
+    "id": "37c8f4d5-5e72-4a0d-ace5-2ac1e491f320",
+    "aisle": 2,
+    "rack": 2,
+    "shelf": 2,
+    "bin": 2
+  }
+}
+
+```
+
+Response: The transaction with the ID 0d09babe-cd40-471e-8b85-ba954bdf510b has been updated 
+
+
+DELETE - http://localhost:5000/api/transaction/delete/{id} : Deletes a transaction with a given ID. 
+
+Example: DELETE -  http://localhost:5000/api/Transaction/delete/0d09babe-cd40-471e-8b85-ba954bdf510b
+
+Response: The transaction with the ID 0d09babe-cd40-471e-8b85-ba954bdf510b has been deleted.
+
 
 # Demo
