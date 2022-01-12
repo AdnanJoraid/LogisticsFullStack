@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LogisticsAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220109214547_setupDatabase")]
-    partial class setupDatabase
+    [Migration("20220112000714_updatedDemoMigration")]
+    partial class updatedDemoMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
