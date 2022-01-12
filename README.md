@@ -25,7 +25,7 @@ Backend:
 - IDE: Visual Studio Code
 
 Frontend:
-- React
+- React, JavaScript, and HTML/CSS
   
 To run the backend after installation:
 1. cd backend 
