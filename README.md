@@ -6,7 +6,8 @@ Hey! My name is Adnan Joraid, and this is my submission for the Shopify backend 
 - [Installation and Running the Application](#installation-and-running-the-application)
   - [Backend](#backend)
   - [Frontend](#frontend)
-  - [Class Diagram](#class-diagram)
+
+- [Class Diagram](#class-diagram)
 - [API Endpoints Examples and how to use](#api-endpoints-examples-and-how-to-use)
   - [Inventory Controller API endpoints](#inventory-controller-api-endpoints)
   - [Warehouse Controller API endpoints](#warehouse-controller-api-endpoints)
