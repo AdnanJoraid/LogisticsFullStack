@@ -6,6 +6,7 @@ Hey! My name is Adnan Joraid, and this is my submission for the Shopify backend 
 - [Installation and Running the Application](#installation-and-running-the-application)
   - [Backend](#backend)
   - [Frontend](#frontend)
+  - [Class Diagram](#class-diagram)
 - [API Endpoints Examples and how to use](#api-endpoints-examples-and-how-to-use)
   - [Inventory Controller API endpoints](#inventory-controller-api-endpoints)
   - [Warehouse Controller API endpoints](#warehouse-controller-api-endpoints)
@@ -59,6 +60,11 @@ To run Frontend:
 7. Type in the terminal: npm start
 8. (In case of error in previous step) write this command in the terminal npm install react-scripts --save
 9. If everything worked, the server will be here -> http://localhost:3000/ 
+
+
+# Class Diagram
+![ShopifyBackendChallenge (1)](https://user-images.githubusercontent.com/59744727/149406576-85c26598-8d63-4485-bc0b-cefeba9a8bff.jpeg)
+
 
 
 # API Endpoints Examples and how to use
