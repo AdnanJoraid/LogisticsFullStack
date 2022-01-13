@@ -6,7 +6,7 @@ Hey! My name is Adnan Joraid, and this is my submission for the Shopify backend 
 - [Installation and Running the Application](#installation-and-running-the-application)
   - [Backend](#backend)
   - [Frontend](#frontend)
-- [API Endpoints and Examples](#api-endpoints-and-examples)
+- [API Endpoints Examples and how to uses](#api-endpoints-examples-and-how-to-use)
   - [Inventory Controller API endpoints](#inventory-controller-api-endpoints)
   - [Warehouse Controller API endpoints](#warehouse-controller-api-endpoints)
   - [Transaction Controller API endpoints](#transaction-controller-api-endpoints)
@@ -39,27 +39,29 @@ To run Frontend:
 ## Backend
 1. Download .NET 5.0 SDK from here https://dotnet.microsoft.com/en-us/download/dotnet
 2. Download VSCode from here https://code.visualstudio.com/download 
-3. Test if dotnet is downloaded correctly by:
+3. Download Git from here https://git-scm.com/download/
+4. Test if dotnet is downloaded correctly by:
 	- Go to the terminal 
 	- Write dotnet --version
-4. Open a new terminal and clone the repo using this link: https://github.com/AdnanJoraid/LogisticsAPI-ShopifyBackend-2022
-5. Open any IDE of your choice 
-6. (VSCode-Specfic step): If you open the code using VSCode, at the bottom right you will get a pop-up that says "required assets to build and debug are missing". choose the "yes" option for that. 
-7. open the terminal and navigate to the backend directory: cd backend 
-8. run the command: dotnet run
-9. If everything worked, the server will be here ->  http://localhost:5000/ 
+5. Open a new terminal and clone the repo using this link: https://github.com/AdnanJoraid/LogisticsAPI-ShopifyBackend-2022
+6. Open any IDE of your choice 
+7. (VSCode-Specfic step): If you open the code using VSCode, at the bottom right you might get a pop-up that says "required assets to build and debug are missing". choose the "yes" option for that. 
+8. open the terminal and navigate to the backend directory: cd backend 
+9. run the command: dotnet run
 
 ## Frontend
 1. Install Node.js from here https://nodejs.org/en/download/ 
-2. To verify installation, write: node -v in the terminal. Also try running: npm -v 
+2. To verify installation, write: node -v in the terminal. Also try running: npm --version 
 3. open a new terminal and navigate to the project 
 4. This time navigate to the frontend folder: cd frontend 
 5. Navigate to the react project: cd logisticsfrontend
-6. Type in the terminal: npm start
-7. If everything worked, the server will be here -> http://localhost:3000/ 
+6. write in the terminal" npm install 
+7. Type in the terminal: npm start
+8. (In case of error in previous step) write this command in the terminal npm install react-scripts --save
+9. If everything worked, the server will be here -> http://localhost:3000/ 
 
 
-# API Endpoints and Examples
+# API Endpoints Examples and how to use
 ## Inventory Controller API endpoints
 POST - http://localhost:5000/api/inventory : Adds an inventory item to the SQLite database.
 Example: Request Body:
