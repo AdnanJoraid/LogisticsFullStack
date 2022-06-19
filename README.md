@@ -1,4 +1,4 @@
-# LogisticsFullStack-ShopifyBackend-2022
+# LogisticsFullStack
 Full-Stack web application made in C#, JavaScript, SQLite, ASP.NET and React. 
 
 ## Table of Contents
