@@ -1,5 +1,5 @@
-# LogisticsAPI-ShopifyBackend-2022
-Hey! My name is Adnan Joraid, and this is my submission for the Shopify backend developer intern (summer 2022) challenge. This readme will contain detailed information on the installations required and an overview of technologies used, which type of feature I chose to implement, and finally, a demo of the working application. 
+# LogisticsFullStack-ShopifyBackend-2022
+Full-Stack web application made in C#, JavaScript, SQLite, ASP.NET and React. 
 
 ## Table of Contents
 - [Technologies](#technologies)
@@ -15,7 +15,7 @@ Hey! My name is Adnan Joraid, and this is my submission for the Shopify backend 
 - [Demo](#demo)
 
 # Technologies
-LogisticsAPI is an extensive REST API back-end built with C#, SQLite database, and ASP.NET framework that implements an inventory tracking web application for a logistics company. The back-end supports basic CRUD functionality for creating inventory items, warehouses, and inventory transactions. The back-end provides a high-quality code with input validation, try-catch statements to handle unexpected exceptions, and different HTTP status codes returned with the response to provide confirmation or error messages. Although this is a back-end specific challenge, I implemented a frontend using React allowing users to add items, warehouses, and transactions. Moreover, the user is also able to view all the items, warehouses and transactions through the frontend.
+LogisticsFullStack is an extensive Full-Stack web application made in C#, JavaScript, SQLite, ASP.NET and React, that implements an inventory tracking web application for a logistics company. The back-end supports basic CRUD functionality for creating inventory items, warehouses, and inventory transactions. The back-end provides a high-quality code with input validation, try-catch statements to handle unexpected exceptions, and different HTTP status codes returned with the response to provide confirmation or error messages. Although this is a back-end specific challenge, I implemented a frontend using React allowing users to add items, warehouses, and transactions. Moreover, the user is also able to view all the items, warehouses and transactions through the frontend.
 
 
 
